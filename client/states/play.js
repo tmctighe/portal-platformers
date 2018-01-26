@@ -14,7 +14,7 @@ class PlayState extends Phaser.State {
         this.createSounds();
 
         // the phaser-tiled plugin requires casting this.game; not normally recommended
-        this.map = this.game.add.tiledmap('sketchworld');
+        this.map = this.game.add.tiledmap('drupalworld');
         this.game.physics.startSystem(Phaser.Physics.P2JS);
         this.game.physics.p2.applyDamping = false;
         this.game.physics.p2.applyGravity = true;
@@ -421,7 +421,7 @@ class PlayState extends Phaser.State {
       this.player.animations.play('dead');
       this.player.body.velocity.y = -1000;
       this.player.body.velocity.x = 0;
-      this.sounds.death.play();
-      this.sounds.scream.play();
+//      this.sounds.death.play();
+//      this.sounds.scream.play();
     }
 }
