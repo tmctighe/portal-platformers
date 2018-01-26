@@ -75,14 +75,14 @@ class PlayState extends Phaser.State {
         let airborne = !this.canJump();
         let moveAmt = 2000;
         let pressingLeft = this.cursors.left.isDown
-            || game.input.keyboard.isDown(Phaser.Keyboard.A)
+            || game.input.keyboard.isDown(Phaser.Keyboard.A);
         let pressingRight = this.cursors.right.isDown
-            || game.input.keyboard.isDown(Phaser.Keyboard.D)
+            || game.input.keyboard.isDown(Phaser.Keyboard.D);
         let pressingUp = this.cursors.up.isDown
             || game.input.keyboard.isDown(Phaser.Keyboard.W)
-            || game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)
+            || game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR);
         let pressingDown = this.cursors.down.isDown
-            || game.input.keyboard.isDown(Phaser.Keyboard.S)
+            || game.input.keyboard.isDown(Phaser.Keyboard.S);
 
         if (pressingUp && !airborne) {
             this.player.body.velocity.y = -700;
@@ -145,8 +145,16 @@ class PlayState extends Phaser.State {
 
         else {
             // not holding any movement keys
-            this.player.body.velocity.x *= 0.90;
 
+            // If player x velocity is non-zero.
+            if (this.player.body.velocity.x !== 0) {
+                if (Math.abs(this.player.body.velocity.x) < 2.00) {
+                    console.log('stopping');
+                    this.player.body.velocity.x = 0;
+                } else {
+                    this.player.body.velocity.x *= 0.90;
+                }
+            }
         }
 
         if (airborne) {
