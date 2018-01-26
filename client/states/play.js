@@ -35,6 +35,15 @@ class PlayState extends Phaser.State {
         // the phaser-tiled plugin requires casting this.game; not normally recommended
         this.game.physics.p2.convertTiledCollisionObjects(this.map, 'physics_layer');
 
+        // // Turn on impact events, to generate collision callbacks.
+        // game.physics.setImpactEvents(true);
+        // var playerCollisionGroup = game.physics.p2.createCollisionGroup();
+        // game.physics.p2.updateBoundsCollisionGroup();
+
+        window.playing = {};
+        window.playing.topob = this;
+
+
         this.cursors = this.game.input.keyboard.createCursorKeys();
 
         let resetButton = document.createElement('a');
@@ -47,6 +56,10 @@ class PlayState extends Phaser.State {
         });
 
         document.body.appendChild(resetButton);
+
+        if (window.custom_map) {
+            window.custom_map.create(this);
+        }
 
         this.socketConnect();
     }
@@ -62,19 +75,19 @@ class PlayState extends Phaser.State {
         let airborne = !this.canJump();
         let moveAmt = 2000;
         let pressingLeft = this.cursors.left.isDown
-            || game.input.keyboard.isDown(Phaser.Keyboard.A)
+            || game.input.keyboard.isDown(Phaser.Keyboard.A);
         let pressingRight = this.cursors.right.isDown
-            || game.input.keyboard.isDown(Phaser.Keyboard.D)
+            || game.input.keyboard.isDown(Phaser.Keyboard.D);
         let pressingUp = this.cursors.up.isDown
             || game.input.keyboard.isDown(Phaser.Keyboard.W)
-            || game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)
+            || game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR);
         let pressingDown = this.cursors.down.isDown
-            || game.input.keyboard.isDown(Phaser.Keyboard.S)
+            || game.input.keyboard.isDown(Phaser.Keyboard.S);
 
         if (pressingUp && !airborne) {
             this.player.body.velocity.y = -700;
             if (!this.sounds.jump.isPlaying) {
-                this.sounds.jump.play();
+//                this.sounds.jump.play();
             }
         }
 
@@ -132,8 +145,16 @@ class PlayState extends Phaser.State {
 
         else {
             // not holding any movement keys
-            this.player.body.velocity.x *= 0.90;
 
+            // If player x velocity is non-zero.
+            if (this.player.body.velocity.x !== 0) {
+                if (Math.abs(this.player.body.velocity.x) < 2.00) {
+                    console.log('stopping');
+                    this.player.body.velocity.x = 0;
+                } else {
+                    this.player.body.velocity.x *= 0.90;
+                }
+            }
         }
 
         if (airborne) {
@@ -157,6 +178,10 @@ class PlayState extends Phaser.State {
         // check for death
         if (this.player.y + this.player.height / 2 >= this.game.world.height) {
           this.killPlayer();
+        }
+
+        if (window.custom_map && window.custom_map.update) {
+            window.custom_map.update(this);
         }
     }
 
@@ -421,7 +446,7 @@ class PlayState extends Phaser.State {
       this.player.animations.play('dead');
       this.player.body.velocity.y = -1000;
       this.player.body.velocity.x = 0;
-      this.sounds.death.play();
-      this.sounds.scream.play();
+//      this.sounds.death.play();
+//      this.sounds.scream.play();
     }
 }
