@@ -1,5 +1,6 @@
 window.custom_map = {
     winner: false,
+    icons: [],
     preload: function (parent) {
         // Load my interactive object sprite sheet.
         parent.game.load.spritesheet('ms', 'assets/maps/sketchworld/sketchworld.png', 75, 75);
@@ -17,20 +18,30 @@ window.custom_map = {
     },
     update: function (context) {
         if (window.custom_map.winner === true) {
-            window.custom_map.winner = false;
-            for (let x=0;x<100;x++) {
+            // window.custom_map.winner = false;
 
+            if (Math.floor(Math.random()*2.0) === 1) {
+                if (this.icons.length>150) {window.custom_map.winner = false;}
 
-                //d = context.game.add.image(250, 1100, 'drupal');
                 d = context.game.add.sprite(150, 1100, 'drupal', 1);
+                this.icons.push(d);
                 d.scale.set(0.25, 0.25);
                 context.game.physics.p2.enable([d], false);
                 //context.druppel[x].body.setRectangleFromSprite(context.druppel[x]);
 
                 d.body.x = context.player.x;
-                console.log(d.body.y, context.player.y);
-                d.body.velocity.y = -50;
+                d.body.y = context.player.y - 110;
+
+                d.body.velocity.y = -800;
                 d.body.velocity.x = Math.random()*1000.0 - 500.0;
+            }
+        } else {
+            // Decay the sprites.
+            if (this.icons.length > 1) {
+                if (Math.floor(Math.random() * 1.1) === 1) {
+                    d = this.icons.pop();
+                    d.destroy();
+                }
             }
         }
     },
