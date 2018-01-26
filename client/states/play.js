@@ -223,7 +223,7 @@ class PlayState extends Phaser.State {
         playerSprite.data.id = player.id;
         if (player.position) {
             playerSprite.position.set(player.position.x, player.position.y);
-        };
+        }
         playerSprite.scale.set(2, 2);
 
         // only enable physics for main player
@@ -278,6 +278,7 @@ class PlayState extends Phaser.State {
 
         // Add this sprite to list of current players
         this.playerSprites[player.id] = playerSprite;
+        this.player.spriteObj = playerSprite;
     }
 
     revive() {

@@ -9,6 +9,7 @@ window.custom_map = {
     },
     create: function (parent) {
         window.custom_map.methods.addBlock('b1', 150, 1100, parent);
+
     },
     update: function (parent) {
     },
@@ -34,9 +35,24 @@ window.custom_map = {
             // Check to make sure we were hit from below.
             if (window.custom_map.methods.fromBelow(equation)) {
                 console.log("Hit the brick");
+                mr = this.game.add.sprite(150, 1100, 'ms', 11);
+                this.game.physics.p2.enable([mr], false);
+                mr.body.setRectangleFromSprite(mr);
+                mr.body.velocity.y = -50;
+                mr.body.velocity.x = Math.random()*1000.0 - 500.0;
+                mr.created = Date.now();
+                mr.body.onBeginContact.add(
+                    function(a,b,c,d,e) {
+                        //if (a.created && (Date.now() - a.created > 10000)) {
+                        //    a.destroy(true);
+                        //    this.player.playerSprite.scale.set(3,3);
+                        //}
+                    }
+                );
             }
         },
         fromBelow: function (eq) {
+
             if (eq[0].contactPointA[0] <= 0) { return false; }
             if (eq[0].contactPointA[1] > 0) { return false; }
             if (eq[1].contactPointA[0] > 0) { return false; }
