@@ -27,7 +27,8 @@ window.custom_map = {
                 context.game.physics.p2.enable([d], false);
                 //context.druppel[x].body.setRectangleFromSprite(context.druppel[x]);
 
-
+                d.body.x = context.player.x;
+                console.log(d.body.y, context.player.y);
                 d.body.velocity.y = -50;
                 d.body.velocity.x = Math.random()*1000.0 - 500.0;
             }

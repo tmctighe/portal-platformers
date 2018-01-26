@@ -84,7 +84,7 @@ class PlayState extends Phaser.State {
         let pressingDown = this.cursors.down.isDown
             || game.input.keyboard.isDown(Phaser.Keyboard.S);
 
-        if (pressingUp && !airborne) {
+        if (pressingUp) { // && !airborne) {
             this.player.body.velocity.y = -700;
             if (!this.sounds.jump.isPlaying) {
 //                this.sounds.jump.play();
