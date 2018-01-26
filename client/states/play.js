@@ -74,7 +74,7 @@ class PlayState extends Phaser.State {
         if (pressingUp && !airborne) {
             this.player.body.velocity.y = -700;
             if (!this.sounds.jump.isPlaying) {
-                this.sounds.jump.play();
+//                this.sounds.jump.play();
             }
         }
 
