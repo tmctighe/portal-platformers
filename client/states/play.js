@@ -180,7 +180,7 @@ class PlayState extends Phaser.State {
           this.killPlayer();
         }
 
-        if (window.custom_map && window.custom_map.update) {
+        if (window.custom_map) {
             window.custom_map.update(this);
         }
     }
