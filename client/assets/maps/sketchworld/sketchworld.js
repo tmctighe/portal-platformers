@@ -8,48 +8,41 @@ window.custom_map = {
     preload_update: function (parent) {
     },
     create: function (parent) {
-        let block;
-
-        // Add the sprite objects to the world.
-        parent.block = parent.game.add.sprite(150, 1100, 'ms', 13);
-
-        parent.game.physics.p2.enable([parent.block], false);
-
-        parent.block.body.setRectangleFromSprite(parent.block);
-        parent.block.body.static = true;
-        // parent.block.body.sprite = block;
-
-        //block.body.setCircle(50);
-
-        //  Check for the player hitting another object
-        //parent.player.body.onBeginContact.add(this.methods.blockHit, parent);
-
-        parent.block.body.onBeginContact.add(this.methods.blockHit, parent);
-
+        window.custom_map.methods.addBlock('b1', 150, 1100, parent);
     },
     update: function (parent) {
     },
     methods: {
-        blockHit: function blockHit(body, bodyB, shapeA, shapeB, equation) {
+        addBlock: function (name, x,y, context) {
+            let block;
 
-            //  The block hit something.
-            //
-            //  This callback is sent 5 arguments:
-            //
-            //  The Phaser.Physics.P2.Body it is in contact with. *This might be null* if the Body was created directly in the p2 world.
-            //  The p2.Body this Body is in contact with.
-            //  The Shape from this body that caused the contact.
-            //  The Shape from the contact body.
-            //  The Contact Equation data array.
-            //
-            //  The first argument may be null or not have a sprite property, such as when you hit the world bounds.
-            if (body) {
-                result = 'You last hit: '; // + body.sprite.key;
+            // Add the sprite objects to the world.
+            block = context.game.add.sprite(150, 1100, 'ms', 13);
+
+            context.blocks = context.blocks || [];
+            context.blocks[name] = block;
+
+            context.game.physics.p2.enable([context.blocks[name]], false);
+            block.body.setRectangleFromSprite(context.blocks[name]);
+            block.body.static = true;
+            block.body.onBeginContact.add(
+                window.custom_map.methods.blockHit,
+                context
+            );
+        },
+        blockHit: function (body, bodyB, shapeA, shapeB, equation) {
+            // Check to make sure we were hit from below.
+            if (window.custom_map.methods.fromBelow(equation)) {
+                console.log("Hit the brick");
             }
-            else {
-                result = 'You last hit: The wall :)';
-            }
-            console.log(result, body, bodyB);
+        },
+        fromBelow: function (eq) {
+            if (eq[0].contactPointA[0] <= 0) { return false; }
+            if (eq[0].contactPointA[1] > 0) { return false; }
+            if (eq[1].contactPointA[0] > 0) { return false; }
+            if (eq[1].contactPointA[1] > 0) { return false; }
+
+            return true;
         }
     }
 };
