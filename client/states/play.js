@@ -35,6 +35,15 @@ class PlayState extends Phaser.State {
         // the phaser-tiled plugin requires casting this.game; not normally recommended
         this.game.physics.p2.convertTiledCollisionObjects(this.map, 'physics_layer');
 
+        // // Turn on impact events, to generate collision callbacks.
+        // game.physics.setImpactEvents(true);
+        // var playerCollisionGroup = game.physics.p2.createCollisionGroup();
+        // game.physics.p2.updateBoundsCollisionGroup();
+
+        window.playing = {};
+        window.playing.topob = this;
+
+
         this.cursors = this.game.input.keyboard.createCursorKeys();
 
         let resetButton = document.createElement('a');
@@ -47,6 +56,10 @@ class PlayState extends Phaser.State {
         });
 
         document.body.appendChild(resetButton);
+
+        if (window.custom_map) {
+            window.custom_map.create(this);
+        }
 
         this.socketConnect();
     }
@@ -157,6 +170,10 @@ class PlayState extends Phaser.State {
         // check for death
         if (this.player.y + this.player.height / 2 >= this.game.world.height) {
           this.killPlayer();
+        }
+
+        if (window.custom_map && window.custom_map.update) {
+            window.custom_map.update(this);
         }
     }
 

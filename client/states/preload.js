@@ -37,13 +37,23 @@ class PreloadState extends Phaser.State {
         this.cache.getJSON('players').forEach((player) => {
             this.load.image(player.name, player.face);
         });
+
+        if (window.custom_map) {
+            window.custom_map.preload(this);
+        }
     }
 
     create() {
         console.log('PreloadState create');
+        if (window.custom_map) {
+            window.custom_map.preload_create(this);
+        }
     }
 
     update() {
         this.game.state.start('SplashState');
+        if (window.custom_map) {
+            window.custom_map.preload_update(this);
+        }
     }
 }
