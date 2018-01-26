@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.1" orientation="orthogonal" renderorder="right-down" width="350" height="50" tilewidth="32" tileheight="32" infinite="0" nextobjectid="72">
+<map version="1.0" tiledversion="1.1.1" orientation="orthogonal" renderorder="right-down" width="350" height="50" tilewidth="32" tileheight="32" infinite="0" nextobjectid="73">
  <tileset firstgid="1" name="drupalworld" tilewidth="32" tileheight="32" tilecount="805" columns="35">
   <image source="drupalworld.png" width="1120" height="736"/>
  </tileset>
@@ -93,7 +93,7 @@
   <object id="50" x="7648" y="896" width="128" height="64"/>
   <object id="51" x="7840" y="896" width="128" height="64"/>
   <object id="52" x="8032" y="896" width="640" height="64"/>
-  <object id="55" x="5568" y="640" width="3104" height="64"/>
+  <object id="55" x="5568" y="640" width="2528" height="64"/>
   <object id="56" x="5568" y="832" width="64" height="64"/>
   <object id="57" x="5728" y="832" width="64" height="64"/>
   <object id="58" x="5888" y="832" width="64" height="64"/>
@@ -110,5 +110,6 @@
   <object id="69" x="7648" y="704" width="64" height="64"/>
   <object id="70" x="7840" y="704" width="64" height="64"/>
   <object id="71" x="8032" y="704" width="64" height="64"/>
+  <object id="72" x="8160" y="640" width="512" height="64"/>
  </objectgroup>
 </map>
