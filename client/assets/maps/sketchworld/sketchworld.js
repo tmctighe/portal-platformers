@@ -52,11 +52,24 @@ window.custom_map = {
             }
         },
         fromBelow: function (eq) {
+            try {
 
-            if (eq[0].contactPointA[0] <= 0) { return false; }
-            if (eq[0].contactPointA[1] > 0) { return false; }
-            if (eq[1].contactPointA[0] > 0) { return false; }
-            if (eq[1].contactPointA[1] > 0) { return false; }
+                if (eq[0].contactPointA[0] <= 0) {
+                    return false;
+                }
+                if (eq[0].contactPointA[1] > 0) {
+                    return false;
+                }
+                if (eq[1].contactPointA[0] > 0) {
+                    return false;
+                }
+                if (eq[1].contactPointA[1] > 0) {
+                    return false;
+                }
+            }
+            catch(e) {
+                return false;
+            }
 
             return true;
         }
