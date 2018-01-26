@@ -11,7 +11,7 @@ window.custom_map = {
         let block;
 
         // Add the sprite objects to the world.
-        parent.block = parent.game.add.sprite(150, 100, 'ms', 13);
+        parent.block = parent.game.add.sprite(150, 1100, 'ms', 13);
 
         parent.game.physics.p2.enable([parent.block], false);
 
