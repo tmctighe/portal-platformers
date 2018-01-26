@@ -23,15 +23,15 @@ class PreloadState extends Phaser.State {
         this.load.audio('scream', 'assets/sfx/wilhelm_scream.wav');
 
         this.load.tiledmap(
-            cacheKey('sketchworld', 'tiledmap'),
-            'assets/maps/sketchworld/sketchworld.json',
+            cacheKey('drupalworld', 'tiledmap'),
+            'assets/maps/drupalworld/drupalworld.json',
             null,
             Phaser.Tilemap.TILED_JSON
         );
 
         this.load.image(
-            cacheKey('sketchworld', 'tileset', 'sketchworld'),
-            'assets/maps/sketchworld/sketchworld.png'
+            cacheKey('drupalworld', 'tileset', 'drupalworld'),
+            'assets/maps/drupalworld/drupalworld.png'
         );
 
         this.cache.getJSON('players').forEach((player) => {
