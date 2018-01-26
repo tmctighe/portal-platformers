@@ -22,7 +22,7 @@ window.custom_map = {
         //block.body.setCircle(50);
 
         //  Check for the player hitting another object
-        parent.player.body.onBeginContact.add(this.methods.blockHit, parent);
+        //parent.player.body.onBeginContact.add(this.methods.blockHit, parent);
 
         parent.block.body.onBeginContact.add(this.methods.blockHit, parent);
 
